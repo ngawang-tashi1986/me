@@ -457,10 +457,35 @@
     /* ---------- Experience ---------- */
     .timeline{
       display:grid;
-      gap: 14px;
+      gap: 18px;
+      position: relative;
+      padding-left: 28px;
+    }
+    .timeline::before{
+      content:"";
+      position:absolute;
+      top: 6px;
+      bottom: 6px;
+      left: 10px;
+      width: 2px;
+      background: linear-gradient(180deg, rgba(96,165,250,0.8), rgba(45,212,191,0.55));
+      border-radius: 999px;
+      box-shadow: 0 0 18px rgba(96,165,250,0.25);
     }
     .role{
       padding: 18px;
+      position: relative;
+    }
+    .role::before{
+      content:"";
+      position:absolute;
+      left: -26px;
+      top: 22px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px rgba(45,212,191,0.18);
     }
     .role-head{
       display:flex;
