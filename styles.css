@@ -243,6 +243,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   display:none;
   padding-bottom: 14px;
 }
+.mobile-panel[hidden]{
+  display:none !important;
+}
 .mobile-panel a{
   display:block;
   padding: 12px 12px;
@@ -660,11 +663,11 @@ footer .foot{
   .about-grid{ grid-template-columns: 1fr; }
   .contact-grid{ grid-template-columns: 1fr; }
   .skills-grid{ grid-template-columns: 1fr; }
-}
-@media (max-width: 720px){
   .nav-links{ display:none; }
   .hamburger{ display:inline-grid; place-items:center; }
   .mobile-panel{ display:block; }
+}
+@media (max-width: 720px){
   .projects-grid{ grid-template-columns: 1fr; }
   .section{ padding: 78px 0; }
   .hero{ padding: 64px 0 40px; }
