@@ -371,7 +371,16 @@ function setModalContent(data){
         wrap.appendChild(content);
 
         button.addEventListener('click', () => {
-          const isOpen = wrap.classList.toggle('is-open');
+          const isOpen = !wrap.classList.contains('is-open');
+          if (isOpen) {
+            modalModuleList.querySelectorAll('.project-modal__module.is-open').forEach(openWrap => {
+              if (openWrap === wrap) return;
+              openWrap.classList.remove('is-open');
+              const openBtn = openWrap.querySelector('.project-modal__module-btn');
+              openBtn?.setAttribute('aria-expanded', 'false');
+            });
+          }
+          wrap.classList.toggle('is-open', isOpen);
           button.setAttribute('aria-expanded', String(isOpen));
         });
         modalModuleList.appendChild(wrap);
@@ -463,5 +472,78 @@ modalClosers.forEach(el => {
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape' && modal?.classList.contains('is-open')) {
     closeModal();
+  }
+});
+
+// ---------------------------
+// Certificate slider + modal
+// ---------------------------
+const certTrack = document.getElementById('certTrack');
+const certNavButtons = document.querySelectorAll('[data-cert-nav]');
+const certCards = document.querySelectorAll('.cert-card[data-cert-src]');
+const certModal = document.getElementById('certModal');
+const certModalTitle = document.getElementById('certModalTitle');
+const certModalFrame = document.getElementById('certModalFrame');
+const certModalDownload = document.getElementById('certModalDownload');
+const certClosers = certModal?.querySelectorAll('[data-cert-close]') || [];
+
+function getCertScrollStep(){
+  if (!certTrack) return 260;
+  const card = certTrack.querySelector('.cert-card');
+  if (!card) return 260;
+  const styles = getComputedStyle(certTrack);
+  const gap = parseFloat(styles.columnGap || styles.gap || '14');
+  return card.getBoundingClientRect().width + gap;
+}
+
+certNavButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (!certTrack) return;
+    const dir = btn.getAttribute('data-cert-nav');
+    const step = getCertScrollStep();
+    certTrack.scrollBy({ left: dir === 'next' ? step : -step, behavior: 'smooth' });
+  });
+});
+
+function openCertModal(card){
+  if (!certModal || !certModalTitle || !certModalFrame || !certModalDownload) return;
+  const src = card.getAttribute('data-cert-src');
+  if (!src) return;
+  const title = card.getAttribute('data-cert-title') || card.textContent.trim();
+  certModalTitle.textContent = title;
+  certModalFrame.src = `${src}#view=FitH`;
+  certModalDownload.href = src;
+  certModal.classList.add('is-open');
+  certModal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  const closeBtn = certModal.querySelector('.cert-modal__close');
+  closeBtn?.focus();
+}
+
+function closeCertModal(){
+  if (!certModal || !certModalFrame) return;
+  certModal.classList.remove('is-open');
+  certModal.setAttribute('aria-hidden', 'true');
+  certModalFrame.src = '';
+  document.body.style.overflow = '';
+}
+
+certCards.forEach(card => {
+  card.addEventListener('click', () => openCertModal(card));
+  card.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      openCertModal(card);
+    }
+  });
+});
+
+certClosers.forEach(el => {
+  el.addEventListener('click', closeCertModal);
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && certModal?.classList.contains('is-open')) {
+    closeCertModal();
   }
 });
