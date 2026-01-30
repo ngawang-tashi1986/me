@@ -341,7 +341,7 @@
       </div>
 
       <div class="projects-grid">
-        <article class="project card reveal">
+        <article class="project card reveal" data-project-id="integration" tabindex="0" role="button" aria-label="Open project details for Integration Solution (Project Management)">
           <h3>Integration Solution (Project Management)</h3>
           <p>
             Coordinated a multi-stakeholder system integration initiative, improving interoperability and delivery reliability.
@@ -355,7 +355,7 @@
           </div>-->
         </article>
 
-        <article class="project card reveal">
+        <article class="project card reveal" data-project-id="erp" tabindex="0" role="button" aria-label="Open project details for In-house ERP Development">
           <h3>In-house ERP Development</h3>
           <p>
             Designed and delivered internal ERP modules to automate business processes and improve reporting and data consistency.
@@ -366,7 +366,7 @@
          
         </article>
 
-        <article class="project card reveal">
+        <article class="project card reveal" data-project-id="asset" tabindex="0" role="button" aria-label="Open project details for Government Asset Inventory System">
           <h3>Government Asset Inventory System</h3>
           <p>
             Built an asset inventory management system to track government-wide ICT assets with audit-friendly reporting.
@@ -376,7 +376,7 @@
           </div>
         </article>
 
-        <article class="project card reveal">
+        <article class="project card reveal" data-project-id="inclusion" tabindex="0" role="button" aria-label="Open project details for Financial Inclusion Reporting System">
           <h3>Financial Inclusion Reporting System</h3>
           <p>
             Delivered a reporting system to support financial inclusion data collection, validation, and monthly submissions.
@@ -386,7 +386,7 @@
           </div>
         </article>
 
-        <article class="project card reveal">
+        <article class="project card reveal" data-project-id="student-loan" tabindex="0" role="button" aria-label="Open project details for Student Loan Scheme System">
           <h3>Student Loan Scheme System</h3>
           <p>
             Implemented a loan management workflow covering applications, eligibility checks, approvals, and repayment tracking.
@@ -396,7 +396,7 @@
           </div>
         </article>
 
-        <article class="project card reveal">
+        <article class="project card reveal" data-project-id="eg2c" tabindex="0" role="button" aria-label="Open project details for EG2C Service Delivery System">
           <h3>EG2C Service Delivery System</h3>
           <p>
             Contributed to an e-government service delivery platform, supporting deployment, operations, and system stability.
@@ -500,11 +500,41 @@
       <div class="foot">
         <div>© <span id="year"></span> Ngawang Tashi Moktan</div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;">
-          <a class="btn" href="#top" aria-label="Back to top">Back to top</a>
+          <a class="btn" href="#top" id="backToTop" aria-label="Back to top">Back to top</a>
         </div>
       </div>
     </div>
   </footer>
+
+  <!-- Project Modal -->
+  <div class="project-modal" id="projectModal" aria-hidden="true">
+    <div class="project-modal__backdrop" data-modal-close></div>
+    <div class="project-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle" aria-describedby="projectModalDesc">
+      <button class="project-modal__close" type="button" aria-label="Close project details" data-modal-close>
+        <span aria-hidden="true">×</span>
+      </button>
+      <div class="project-modal__content">
+        <div class="project-modal__eyebrow">Project Overview</div>
+        <h3 id="projectModalTitle"></h3>
+        <p id="projectModalDesc"></p>
+        <div class="project-modal__modules" id="projectModalModules" hidden>
+          <h4>Key Modules</h4>
+          <div class="project-modal__module-list" id="projectModalModuleList" role="list"></div>
+        </div>
+        <div class="project-modal__grid">
+          <div>
+            <h4>Scope</h4>
+            <ul id="projectModalScope"></ul>
+          </div>
+          <div>
+            <h4>Key Responsibilities</h4>
+            <ul id="projectModalResponsibilities"></ul>
+          </div>
+        </div>
+        <div class="project-modal__tags" id="projectModalTags"></div>
+      </div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
